@@ -112,7 +112,7 @@ const LoginPage = ({ onLogin }) => {
         {/* Footer */}
         <div className="text-center text-xs text-gray-400 mt-6 mb-3 space-y-0.5">
             <p>Made by Sonu with love</p>
-            <p>Version 1.2.2 | Cimage Group Of Institutions</p>
+            <p>Version 1.2.1 | Cimage Group Of Institutions</p>
         </div>
 
       </div>
