@@ -1,9 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
-
-html, body, #root {
-  min-height: 100dvh;
-  margin: 0;
-  overflow: hidden;
+:root {
+  --brand: #3E4095;
+  --brand-dark: #282A61;
+  --brand-light: #5B5FC7;
+  --accent: #FF6B35;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --surface: #F4F6FB;
+  --card: #FFFFFF;
+  --text-primary: #1A1D2E;
+  --text-secondary: #6B7280;
+  --border: #E5E7EB;
+  /* Safe area for iPhone notch / home bar */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
 }
 
+/* ---- Reset & Base ---- */
+*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html {
+  height: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--surface);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  /* Prevent iOS bounce scroll on body */
+  overscroll-behavior: none;
+}
+
+#root {
+  height: 100%;
+  /* Ensure content never goes under notch */
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+}
+
+/* ---- Inputs: prevent iOS zoom (font-size >= 16px) ---- */
+input, textarea, select {
+  font-size: 16px !important;
+  font-family: inherit;
+}
+
+/* ---- Scrolling ---- */
+* { scroll-behavior: smooth; }
+
+/* iOS momentum scroll for scrollable containers */
+.overflow-y-auto, .overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar */
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+
+/* ---- Animations ---- */
+.page-enter {
+  animation: slideUp 0.25s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Bottom sheet slide up */
+.sheet-enter {
+  animation: sheetUp 0.3s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+@keyframes sheetUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: calc(400px + 100%) 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #efefef 25%, #e0e0e0 50%, #efefef 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 12px;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  top: calc(var(--safe-top) + 72px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  min-width: 240px;
+  max-width: 88vw;
+  animation: toastIn 0.3s ease-out;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Active / press state for buttons */
+.press:active { transform: scale(0.97); }
+
+/* Bottom nav safe area spacing */
+.pb-safe { padding-bottom: calc(var(--safe-bottom) + 0.5rem); }
+.mb-safe { margin-bottom: var(--safe-bottom); }
